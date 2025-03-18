@@ -1,0 +1,7 @@
+resource "aws_instance" "test-vm" {
+   ami = "ami-0fbec3e0504ee1970"
+   instance_type = "t2.micro"
+   tags = {
+    Name = "test-server"
+  }
+}

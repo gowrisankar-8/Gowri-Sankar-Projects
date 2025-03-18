@@ -1,0 +1,13 @@
+resource "aws_key_pair" "test" {
+  key_name   = "test.pem"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAr45nA8b448tSe1cXNihGxobTt81I0mfPFR9pD4LuZVmTVMtVDUfMCVtmzu7un2ck4EfFjyRd1QHyaRzb1Dj1c54tTXrDAUUxc2Xv3XPLEwLqfFXLQlGPKEcedbx+JhWv0mAu8/RKm9fdiHYt506hRw01UGfvRbI1DpPVGvB6XqV6HGUOqkL352AHJI31YYiM/h5GK9XCWpsGoijpDUyZfKW/+b6y/g3HsClxLbczn637ug8W4l0R0UJCHEI0w67GcgdlEgTGcZ6EYEo9OxnoyBm0eu1BKtCasdMs31qoJbrhez39WZ2BmFXnkVGObf7LNy/aKphcnD6Hy26lOm12lQ== rsa-key-20210102"
+}
+resource "aws_instance" "test-vm" {
+  ami = "ami-01e36b7901e884a10"
+  instance_type="t2.micro"
+  key_name="${aws_key_pair.test.key_name}"
+  user_data="${file("install_webserver.sh")}"
+tags = {
+     Name = "test-vm"
+ }
+}
